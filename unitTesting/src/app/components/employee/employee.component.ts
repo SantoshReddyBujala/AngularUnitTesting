@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-employee',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthenticationService) { 
+    this.authService.authenticate();
+  }
 
   ngOnInit(): void {
+  }
+
+  getSalarySlip(): string {
+    if(this.authService.checkAuthenticate()) {
+      return 'Salary Slip';
+    }
+
+    return 'Not Authenticated';
   }
 
 }
